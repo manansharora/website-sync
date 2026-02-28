@@ -59,13 +59,16 @@ export function normalizeTweetUrl(input) {
   const canonicalPath = userSegment
     ? `/${encodeURIComponent(userSegment)}/status/${tweetId}`
     : `/i/web/status/${tweetId}`;
-  const canonicalUrl = `https://x.com${canonicalPath}`;
+  // Use twitter.com for maximum compatibility with Ghost/X embed processors.
+  const canonicalUrl = `https://twitter.com${canonicalPath}`;
 
   return { canonicalUrl, tweetId };
 }
 
 export function buildTweetEmbedHtml(canonicalUrl) {
-  return `<blockquote class="twitter-tweet"><a href="${escapeHtmlAttribute(canonicalUrl)}"></a></blockquote>`;
+  const safeUrl = escapeHtmlAttribute(canonicalUrl);
+  // Keep non-empty anchor text so Ghost's HTML conversion/sanitization does not drop the link.
+  return `<blockquote class="twitter-tweet"><a href="${safeUrl}">${safeUrl}</a></blockquote>`;
 }
 
 export function postContainsTweet(html, tweetId) {
