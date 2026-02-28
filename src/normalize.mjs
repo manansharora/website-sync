@@ -70,7 +70,9 @@ export function buildTweetEmbedHtml(canonicalUrl) {
   // Wrap in Ghost HTML-card markers so Admin API HTML->Lexical conversion is lossless.
   return [
     "<!--kg-card-begin: html-->",
-    `<blockquote class="twitter-tweet"><a href="${safeUrl}">${safeUrl}</a></blockquote>`,
+    '<div style="display:flex;justify-content:center;">',
+    `  <blockquote class="twitter-tweet" data-align="center"><a href="${safeUrl}">${safeUrl}</a></blockquote>`,
+    "</div>",
     "<!--kg-card-end: html-->"
   ].join("\n");
 }
