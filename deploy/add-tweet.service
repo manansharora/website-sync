@@ -1,0 +1,17 @@
+[Unit]
+Description=Website Sync add-tweet webhook service
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ghost
+Group=ghost
+WorkingDirectory=/opt/ghost-hooks/website-sync
+EnvironmentFile=/opt/ghost-hooks/website-sync/.env
+ExecStart=/usr/bin/bun run /opt/ghost-hooks/website-sync/src/server.mjs
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

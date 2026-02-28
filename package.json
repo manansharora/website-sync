@@ -1,0 +1,16 @@
+{
+  "name": "website-sync",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Webhook service to append shared X posts into weekly Ghost roundup posts.",
+  "scripts": {
+    "start": "bun run src/server.mjs",
+    "dev": "bun --watch src/server.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "fastify": "^5.6.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
