@@ -67,8 +67,12 @@ export function normalizeTweetUrl(input) {
 
 export function buildTweetEmbedHtml(canonicalUrl) {
   const safeUrl = escapeHtmlAttribute(canonicalUrl);
-  // Keep non-empty anchor text so Ghost's HTML conversion/sanitization does not drop the link.
-  return `<blockquote class="twitter-tweet"><a href="${safeUrl}">${safeUrl}</a></blockquote>`;
+  // Wrap in Ghost HTML-card markers so Admin API HTML->Lexical conversion is lossless.
+  return [
+    "<!--kg-card-begin: html-->",
+    `<blockquote class="twitter-tweet"><a href="${safeUrl}">${safeUrl}</a></blockquote>`,
+    "<!--kg-card-end: html-->"
+  ].join("\n");
 }
 
 export function postContainsTweet(html, tweetId) {
